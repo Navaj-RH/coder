@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Task8" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b4fa0c25-e775-4f9d-9b46-cad118b7a83c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="target/classes/MyDataAdapter.jrdax"/>
+	<style name="Style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{morning_MEASURE}.equalsIgnoreCase( "A" )?true:false]]></conditionExpression>
+			<style mode="Opaque" forecolor="#F72925"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{morning_MEASURE}.isBlank()]]></conditionExpression>
+			<style/>
+		</conditionalStyle>
+	</style>
+	<parameter name="Parameter1" class="java.sql.Date"/>
+	<parameter name="Parameter2" class="java.sql.Date"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT employee_attendence.attendence.afternoon,
+	employee_attendence.attendence.date,
+	employee_attendence.attendence.morning,
+	employee_attendence.employee_details.emp_id,
+	employee_attendence.employee_details.emp_name
+FROM employee_attendence.attendence,
+	employee_attendence.employee_details 
+WHERE	 employee_attendence.attendence.employee_slno = employee_attendence.employee_details.slno]]>
+	</queryString>
+	<field name="afternoon" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="afternoon"/>
+		<property name="com.jaspersoft.studio.field.label" value="afternoon"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="attendence"/>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="attendence"/>
+	</field>
+	<field name="morning" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="morning"/>
+		<property name="com.jaspersoft.studio.field.label" value="morning"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="attendence"/>
+	</field>
+	<field name="emp_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emp_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee_details"/>
+	</field>
+	<field name="emp_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emp_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="employee_details"/>
+	</field>
+	<group name="Group1" keepTogether="true">
+		<groupExpression><![CDATA[$F{date}.getMonth()]]></groupExpression>
+		<groupHeader>
+			<band height="26">
+				<subreport>
+					<reportElement isPrintRepeatedValues="false" x="3" y="0" width="545" height="22" uuid="f083879c-5d7c-4a39-8960-8435f55cda2a"/>
+					<subreportParameter name="Parameter1">
+						<subreportParameterExpression><![CDATA[$P{Parameter1}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="Parameter2">
+						<subreportParameterExpression><![CDATA[$P{Parameter2}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["src/main/resources/subreport.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="104">
+			<staticText>
+				<reportElement x="280" y="0" width="230" height="71" uuid="1eb728d0-1fa6-4cfe-9863-b92bc1408bff"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[TechnoElevate, IndiQube 		                                                               Jayanagar South MIle, Vijayarangam Layout                                         Bengaluru, Karnataka 560076            ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="61">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="61" backcolor="#999090" uuid="e39f17be-2f38-4aff-8393-c17e247943c9"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="59" uuid="7b42f881-d76b-4cf2-a5d6-b8bbe08bffb8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Employee Attendence Details]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="24" width="50" height="30" uuid="b088fa4a-6d67-4c06-94ad-369f5a47b5da"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="54" y="24" width="46" height="30" uuid="a756dac1-1d6a-4427-95f5-ef313d7042e2"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="465" y="24" width="83" height="30" uuid="756d0a71-39ad-4699-8bb8-d2065b7bab8c"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40">
+			<textField pattern="MMMM">
+				<reportElement x="430" y="5" width="82" height="30" uuid="cf897c22-df9f-4383-8f1e-3d15c42ad7db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="5" width="70" height="30" uuid="fabec5a3-80f9-455e-88f8-0bba019f5baa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Month :]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+</jasperReport>
